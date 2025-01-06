@@ -7,11 +7,21 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
     @State private var inputUnit: String = "Celsius"
     @State private var outputUnit: String = "Fahrenheit"
     @State private var inputValue: Double = 0.0
     @FocusState private var inputIsFocused: Bool
+    
+    enum TemperatureUnit: String, CaseIterable {
+        case celsius = "Celsius"
+        case fahrenheit = "Fahrenheit"
+        case kelvin = "Kelvin"
+    }
+    
+    let unitChoices = TemperatureUnit.allCases.map { $0.rawValue }
     
     var outputValue: Double {
         if inputUnit == "Celsius" {
@@ -40,8 +50,6 @@ struct ContentView: View {
             }
         }
     }
-    
-    let unitChoices = ["Celsius", "Fahrenheit", "Kelvin"]
     
     var body: some View {
         NavigationStack {
