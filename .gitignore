@@ -32,3 +32,6 @@ Carthage/Build/
 *.key
 *.pem
 
+# Xcode user data
+*.xcuserstate
+xcuserdata/
