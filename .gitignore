@@ -1,0 +1,37 @@
+# Xcode
+DerivedData/
+*.xcuserdata/
+*.xcscmblueprint/
+*.xccheckout/
+*.xcodeproj/project.xcworkspace/
+
+# Build
+build/
+*.app/
+*.ipa/
+*.dSYM/
+*.swiftmodule/
+*.swiftdoc/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Logs
+*.log
+
+# Secrets (ajustez selon vos besoins)
+.env
+*.key
+*.pem
+
+# Xcode user data
+*.xcuserstate
+xcuserdata/
