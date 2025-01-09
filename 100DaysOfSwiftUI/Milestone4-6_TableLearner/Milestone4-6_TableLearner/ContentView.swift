@@ -88,29 +88,29 @@ struct ContentView: View {
     
     @State private var animalState: [String: AnimalStates] = [:]
     
+    @State private var isShowingFirstView = true
+    
     var body: some View {
         ZStack {
             LinearGradient(colors: [.cyan, .yellow], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
-            
-            ScrollView {
-                VStack {
-                    Spacer()
-                    
-                    Text("Collect the Animals!")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .shadow(radius: 5)
-                    
-                    Text("Answer the math questions and create your animal farm")
-                        .font(.title3)
-                        .foregroundColor(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                    
-                    Spacer()
-                    
+        
+            VStack {
+                
+                Text("Collect the Animals!")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .shadow(radius: 5)
+                
+                Text("Answer the math questions and create your animal farm")
+                    .font(.title3)
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
+                
+                if isShowingFirstView {
                     VStack {
                         VStack {
                             Text("I want to learn to")
@@ -146,64 +146,71 @@ struct ContentView: View {
                         .padding()
                     }
                     .modifier(BigBlock())
+                    .transition(.opacity)
                     
-                    
-                    Spacer()
-                    
+                } else {
                     VStack {
-                        Text("Game \(gameNumber) / \(numberQuestion)")
-                            .modifier(Instruction())
+                        VStack {
+                            Text("Game \(gameNumber) / \(numberQuestion)")
+                                .modifier(Instruction())
+                            
+                            Text("\(firstInt) x \(secondInt)")
+                                .modifier(Operation())
+                            
+                            TextField("Answer", text: $temporaryAnswer)
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Button("Validate") {
+                                if let validatedAnswer = Int(temporaryAnswer) {
+                                    answer = validatedAnswer
+                                    enterAnswer()
+                                }
+                            }
+                            .modifier(BeautifulButton())
+                        }
+                        .modifier(BigBlock())
                         
-                        Text("\(firstInt) x \(secondInt)")
-                            .modifier(Operation())
                         
-                        TextField("Answer", text: $temporaryAnswer)
-                            .keyboardType(.numberPad)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
-                        Button("Validate") {
-                            if let validatedAnswer = Int(temporaryAnswer) {
-                                answer = validatedAnswer
-                                enterAnswer()
+                        LazyVGrid(columns: columns, spacing: 10) {
+                            ForEach(animals, id: \.self) { animal in
+                                Image(animal)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 60, height: 60)
+                                    .scaleEffect(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 1.0, neitherValue: 0.5))
+                                    .animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animalState[animal])
+                                    .opacity(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 0.3, neitherValue: 0.3))
+                                    .saturation(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 0.0, neitherValue: 0.6))
+                                    .animation(.easeOut(duration: 0.3), value: animalState[animal])
+                                    .rotationEffect(.degrees(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 360, loseValue: 180, neitherValue: 0)))
+                                    .animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animalState[animal])
+                                    .shadow(radius: 5)
+                                    .onTapGesture {
+                                        // fun actions to come
+                                    }
                             }
                         }
-                        .modifier(BeautifulButton())
+                        
+                        Text("You have \(score) animals in your farm!")
+                            .modifier(BigBlock())
                     }
-                    .modifier(BigBlock())
-                    
-                    Spacer()
-                    
-                    Text("Your score is: \(score)")
-                        .modifier(BigBlock())
-                    
-                    LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(animals, id: \.self) { animal in
-                            Image(animal)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .scaleEffect(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 1.0, neitherValue: 0.5))
-                                .animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animalState[animal])
-                                .opacity(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 0.3, neitherValue: 0.3))
-                                .saturation(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 0.0, neitherValue: 0.3))
-                                .animation(.easeOut(duration: 0.3), value: animalState[animal])
-                                .rotationEffect(.degrees(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 360, loseValue: 0, neitherValue: 0)))
-                                .animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animalState[animal])
-                                .shadow(radius: 5)
-                                .onTapGesture {
-                                    // fun actions to come
-                                }
-                        }
-                    }
+                    .transition(.opacity)
                 }
-                .alert(resultText, isPresented: $showingResult) {}
-                .alert("End of Game", isPresented: $showingFinalResult) {
-                    Button("Restart") {startGame()}
-                } message: {
-                    Text(Constants.finalScoreTeller(score: score, numberQuestion: numberQuestion))
-                }
-                .padding(.horizontal, 20)
             }
+            .alert(resultText, isPresented: $showingResult) {}
+            .alert("End of Game", isPresented: $showingFinalResult) {
+                Button("Restart") {
+                    startGame()
+                    withAnimation {
+                        isShowingFirstView.toggle()
+                    }
+                }
+            } message: {
+                Text(Constants.finalScoreTeller(score: score, numberQuestion: numberQuestion))
+            }
+            .padding(.horizontal, 20)
+        
         }
     }
     
@@ -215,6 +222,10 @@ struct ContentView: View {
         gameNumber = 1
         animals = Array(allAnimals[0..<numberQuestion]).shuffled()
         allAnimals.forEach { animal in animalState[animal] = .neither }
+        withAnimation {
+            isShowingFirstView = false
+        }
+        showingResult = false
     }
     
     func enterAnswer(){
