@@ -82,7 +82,11 @@ struct ContentView: View {
     
     let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 5)
     
-    @State private var imageOpacity: [String: Double] = [:]
+    enum AnimalStates {
+        case win, lose, neither
+    }
+    
+    @State private var animalState: [String: AnimalStates] = [:]
     
     var body: some View {
         ZStack {
@@ -178,16 +182,17 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 60, height: 60)
-                                .opacity(imageOpacity[animal] ?? 0.5)
+                                .scaleEffect(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 1.0, neitherValue: 0.5))
+                                .animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animalState[animal])
+                                .opacity(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 0.3, neitherValue: 0.3))
+                                .saturation(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 1.0, loseValue: 0.0, neitherValue: 0.3))
+                                .animation(.easeOut(duration: 0.3), value: animalState[animal])
+                                .rotationEffect(.degrees(valueWinLoseNeither(state: animalState[animal] ?? .neither, winValue: 360, loseValue: 0, neitherValue: 0)))
+                                .animation(.interpolatingSpring(stiffness: 50, damping: 5), value: animalState[animal])
                                 .shadow(radius: 5)
                                 .onTapGesture {
                                     // fun actions to come
                                 }
-                        }
-                    }
-                    .onAppear {
-                        animals.forEach { animal in
-                            imageOpacity[animal] = 0.5
                         }
                     }
                 }
@@ -209,16 +214,17 @@ struct ContentView: View {
         score = 0
         gameNumber = 1
         animals = Array(allAnimals[0..<numberQuestion]).shuffled()
-        allAnimals.forEach { animal in imageOpacity[animal] = 0.5 }
+        allAnimals.forEach { animal in animalState[animal] = .neither }
     }
     
     func enterAnswer(){
         if answer == firstInt*secondInt {
             score += 1
             resultText = Constants.correctText
-            imageOpacity[animals[gameNumber - 1]] = 1.0
+            animalState[animals[gameNumber - 1]] = .win
         } else {
             resultText = Constants.wrongText
+            animalState[animals[gameNumber - 1]] = .lose
         }
         showingResult = true
         if gameNumber == numberQuestion {
@@ -233,6 +239,14 @@ struct ContentView: View {
         firstInt = Int.random(in: 1...upTo)
         secondInt = Int.random(in: 1...upTo)
         gameNumber += 1
+    }
+    
+    func valueWinLoseNeither(state: AnimalStates, winValue: Double, loseValue: Double, neitherValue: Double) -> Double {
+        switch state {
+        case .win : return winValue
+        case .lose : return loseValue
+        case .neither : return neitherValue
+        }
     }
 }
 
