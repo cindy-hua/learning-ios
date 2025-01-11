@@ -26,7 +26,7 @@ struct ElementModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .listRowBackground(
-                Capsule()
+                RoundedRectangle(cornerRadius: 10)
                     .fill(Color(white: 1, opacity: 0.5))
                     .padding(.vertical, 2).padding(.horizontal, 5)
             )
@@ -37,8 +37,12 @@ struct BigTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.largeTitle)
+            .fontWeight(.bold)
+            .padding(.bottom, 5)
+            .foregroundStyle(.white)
     }
 }
+
 
 @Observable
 class Expenses {

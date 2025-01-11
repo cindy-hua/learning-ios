@@ -27,15 +27,29 @@ struct AddView: View {
                     .ignoresSafeArea()
                 Form {
                     TextField("Name", text: $name)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color(.systemGray6))
+                        )
+                        .padding(.vertical, 5)
                     
                     Picker("Type", selection: $type) {
                         ForEach(types, id: \.self) {
                             Text($0)
                         }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.vertical, 5)
                     
                     TextField("Amount", value: $amount, format: .currency(code: "USD"))
                         .keyboardType(.decimalPad)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color(.systemGray6))
+                        )
+                        .padding(.vertical, 5)
                 }
                 .navigationTitle("Add new expense")
                 .toolbar {
