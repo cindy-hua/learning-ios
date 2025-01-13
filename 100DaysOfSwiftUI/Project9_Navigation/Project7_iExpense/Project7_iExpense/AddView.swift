@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var name = ""
+    @State private var name = "Expense's name"
     @State private var type = "Personal"
     @State private var amount = 0.0
     
@@ -26,13 +26,15 @@ struct AddView: View {
                     .opacity(0.3)
                     .ignoresSafeArea()
                 Form {
-                    TextField("Name", text: $name)
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color(.systemGray6))
-                        )
-                        .padding(.vertical, 5)
+//                    Deleted for testing the name in the toolbar:
+                    
+//                    TextField("Name", text: $name)
+//                        .padding()
+//                        .background(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .fill(Color(.systemGray6))
+//                        )
+//                        .padding(.vertical, 5)
                     
                     Picker("Type", selection: $type) {
                         ForEach(types, id: \.self) {
@@ -51,7 +53,8 @@ struct AddView: View {
                         )
                         .padding(.vertical, 5)
                 }
-                .navigationTitle("Add new expense")
+                .navigationTitle($name)
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     Button("Save") {
                         let item = ExpenseItem(name: name, type: type, amount: amount)
