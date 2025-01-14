@@ -8,7 +8,7 @@
 import Foundation
 import Observation
 
-struct Activity: Identifiable, Codable {
+struct Activity: Identifiable, Codable, Hashable {
     var id = UUID()
     var name: String
     var description: String
@@ -25,7 +25,9 @@ class Activities {
     init(list: [Activity]? = nil) {
         if let list = list {
             self.list = list
+            print("Initialized with provided list")
         } else {
+            print("Attempting to load activities from UserDefaults")
             loadActivities()
         }
     }
@@ -39,15 +41,20 @@ class Activities {
         do {
             let encoded = try JSONEncoder().encode(list)
             UserDefaults.standard.set(encoded, forKey: "Items")
+            print("Activities saved successfully")
         } catch {
             print("Failed to save activities: \(error)")
         }
     }
     
     private func loadActivities() {
-        guard let savedItems = UserDefaults.standard.data(forKey: "Items") else {return }
+        guard let savedItems = UserDefaults.standard.data(forKey: "Items") else {
+            print("No saved activities found")
+            return
+        }
         do {
             list = try JSONDecoder().decode([Activity].self, from: savedItems)
+            print("Activities loaded successfully")
         } catch {
             print("Failed to load activities: \(error)")
         }

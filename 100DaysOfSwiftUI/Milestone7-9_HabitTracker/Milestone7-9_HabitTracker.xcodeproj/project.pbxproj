@@ -12,6 +12,9 @@
 		1E5D473C2D3668F3002E2CAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E5D473B2D3668F3002E2CAA /* Assets.xcassets */; };
 		1E5D473F2D3668F3002E2CAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E5D473E2D3668F3002E2CAA /* Preview Assets.xcassets */; };
 		1E5D47462D366AF5002E2CAA /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5D47452D366AF5002E2CAA /* Activity.swift */; };
+		1E5D47482D36A171002E2CAA /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5D47472D36A171002E2CAA /* ActivityDetailView.swift */; };
+		1E5D474A2D36A17E002E2CAA /* AddActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5D47492D36A17E002E2CAA /* AddActivityView.swift */; };
+		1E5D474C2D36BB76002E2CAA /* AddSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5D474B2D36BB76002E2CAA /* AddSessionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,9 @@
 		1E5D473B2D3668F3002E2CAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E5D473E2D3668F3002E2CAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1E5D47452D366AF5002E2CAA /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		1E5D47472D36A171002E2CAA /* ActivityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
+		1E5D47492D36A17E002E2CAA /* AddActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityView.swift; sourceTree = "<group>"; };
+		1E5D474B2D36BB76002E2CAA /* AddSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSessionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +61,9 @@
 			children = (
 				1E5D47372D3668ED002E2CAA /* Milestone7_9_HabitTrackerApp.swift */,
 				1E5D47392D3668ED002E2CAA /* ContentView.swift */,
+				1E5D47472D36A171002E2CAA /* ActivityDetailView.swift */,
+				1E5D474B2D36BB76002E2CAA /* AddSessionView.swift */,
+				1E5D47492D36A17E002E2CAA /* AddActivityView.swift */,
 				1E5D47452D366AF5002E2CAA /* Activity.swift */,
 				1E5D473B2D3668F3002E2CAA /* Assets.xcassets */,
 				1E5D473D2D3668F3002E2CAA /* Preview Content */,
@@ -141,8 +150,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E5D47462D366AF5002E2CAA /* Activity.swift in Sources */,
+				1E5D474C2D36BB76002E2CAA /* AddSessionView.swift in Sources */,
 				1E5D473A2D3668ED002E2CAA /* ContentView.swift in Sources */,
+				1E5D47482D36A171002E2CAA /* ActivityDetailView.swift in Sources */,
 				1E5D47382D3668ED002E2CAA /* Milestone7_9_HabitTrackerApp.swift in Sources */,
+				1E5D474A2D36A17E002E2CAA /* AddActivityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

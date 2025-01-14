@@ -7,25 +7,46 @@
 
 import SwiftUI
 
-private var piano = Activity(name: "Piano", description: "I love that")
-private var japanese = Activity(name: "Japanese", description: "This is hard")
+
+enum NavigationDestination: Hashable {
+    case activity(Activity)
+    case addActivity
+}
 
 struct ContentView: View {
-//    @State private var activities = [Activity]()
-    @State private var activities = Activities(list: [piano, japanese])
-    
+    @State private var activities = Activities(list: nil)
+    @State private var navigationPath: [NavigationDestination] = []
+
     var body: some View {
-        NavigationStack{
+        NavigationStack(path: $navigationPath) {
             List {
                 ForEach(activities.list) { activity in
-                    VStack {
-                        Text(activity.name)
-                        Text(activity.description)
+                    NavigationLink(value: NavigationDestination.activity(activity)) {
+                        VStack(alignment: .leading) {
+                            Text(activity.name).font(.headline)
+                            Text(activity.description).font(.subheadline)
+                        }
                     }
                 }
             }
+            .navigationTitle("Habit Tracker")
+            .toolbar {
+                Button(action: {
+                    navigationPath.append(.addActivity)
+                    print(navigationPath)
+                }) {
+                    Label("Add activity", systemImage: "plus")
+                }
+            }
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination {
+                case .activity(let activity):
+                    ActivityDetailView(activity: activity)
+                case .addActivity:
+                    AddActivityView(activities: activities)
+                }
+            }
         }
-        .navigationTitle("Habit Tracker")
     }
 }
 
