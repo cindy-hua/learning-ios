@@ -8,22 +8,34 @@
 import SwiftUI
 
 struct AddSessionView: View {
-    var activity: Activity
+    @Environment(\.dismiss) var dismiss
     
-    @State private var start = Date.now
-    @State private var end = Date.now
+    @Binding var activity: Activity
+    
+    @State private var startTime = Date.now
+    @State private var endTime = Date.now
     
     var body: some View {
         VStack {
-            DatePicker("Begin", selection: $start)
-            DatePicker("End", selection: $end)
+            DatePicker("Begin", selection: $startTime)
+            DatePicker("End", selection: $endTime)
         }
         .navigationTitle("New \(activity.name.lowercased()) session")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            Button("Save") {
+                guard endTime > startTime else {
+                    print("End time must be after start time")
+                    return
+                }
+                activity.addSession(startTime: startTime, endTime: endTime)
+                dismiss()
+            }
+        }
     }
 }
 
 #Preview {
-    let piano = Activity(name: "Piano", description: "I love that")
-    return AddSessionView(activity: piano)
+    @State var piano = Activity(name: "Piano", description: "I love that")
+    return AddSessionView(activity: $piano)
 }

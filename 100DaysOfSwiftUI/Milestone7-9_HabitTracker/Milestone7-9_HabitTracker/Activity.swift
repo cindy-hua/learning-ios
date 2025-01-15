@@ -8,10 +8,22 @@
 import Foundation
 import Observation
 
+
 struct Activity: Identifiable, Codable, Hashable {
+    struct Session: Identifiable, Codable, Hashable {
+        var id = UUID()
+        var startTime: Date
+        var endTime: Date
+    }
+    
     var id = UUID()
     var name: String
     var description: String
+    var sessions: [Session] = []
+    
+    mutating func addSession(startTime: Date, endTime: Date) {
+        sessions.append(Session(startTime: startTime, endTime: endTime))
+    }
 }
 
 @Observable
@@ -22,8 +34,8 @@ class Activities {
         }
     }
     
-    init(list: [Activity]? = nil) {
-        if let list = list {
+    init(list: [Activity] = [Activity]()) {
+        if list != [Activity]() {
             self.list = list
             print("Initialized with provided list")
         } else {

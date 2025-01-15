@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-
 enum NavigationDestination: Hashable {
     case activity(Activity)
     case addActivity
+    case addSession(Activity)
 }
 
 struct ContentView: View {
-    @State private var activities = Activities(list: nil)
+    @State private var activities = Activities(list: [Activity]())
     @State private var navigationPath: [NavigationDestination] = []
+    @State var activity : Activity? = nil
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -28,25 +29,38 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onDelete(perform: removeActivity)
             }
             .navigationTitle("Habit Tracker")
             .toolbar {
                 Button(action: {
                     navigationPath.append(.addActivity)
-                    print(navigationPath)
                 }) {
                     Label("Add activity", systemImage: "plus")
                 }
             }
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
-                case .activity(let activity):
-                    ActivityDetailView(activity: activity)
+                case .activity(let selectedActivity):
+                    if let index = activities.list.firstIndex(where: { $0.id == selectedActivity.id }) {
+                        ActivityDetailView(activity: $activities.list[index], navigationPath: $navigationPath)
+                    }
                 case .addActivity:
                     AddActivityView(activities: activities)
+                case .addSession(let selectedActivity):
+                    if let index = activities.list.firstIndex(where: { $0.id == selectedActivity.id }) {
+                        AddSessionView(activity: $activities.list[index])
+                            .onAppear {
+                                activity = selectedActivity
+                            }
+                    }
                 }
             }
         }
+    }
+    
+    func removeActivity(at offsets: IndexSet) {
+        activities.list.remove(atOffsets: offsets)
     }
 }
 

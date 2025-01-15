@@ -61,8 +61,8 @@
 			children = (
 				1E5D47372D3668ED002E2CAA /* Milestone7_9_HabitTrackerApp.swift */,
 				1E5D47392D3668ED002E2CAA /* ContentView.swift */,
-				1E5D47472D36A171002E2CAA /* ActivityDetailView.swift */,
 				1E5D474B2D36BB76002E2CAA /* AddSessionView.swift */,
+				1E5D47472D36A171002E2CAA /* ActivityDetailView.swift */,
 				1E5D47492D36A17E002E2CAA /* AddActivityView.swift */,
 				1E5D47452D366AF5002E2CAA /* Activity.swift */,
 				1E5D473B2D3668F3002E2CAA /* Assets.xcassets */,
