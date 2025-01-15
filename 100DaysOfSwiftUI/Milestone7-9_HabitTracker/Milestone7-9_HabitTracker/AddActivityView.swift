@@ -15,21 +15,26 @@ struct AddActivityView: View {
     var activities : Activities
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                TextField("Activity name", text: $activityName)
-                TextField("Small Description", text: $activityDescription)
-            }
-            .padding()
-        }
-        .navigationTitle("Add a new activity")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            Button("Save") {
-                if activityName.count > 0 {
-                    activities.add(newActivity: Activity(name: activityName, description: activityDescription))
+        ZStack {
+            Background()
+            ScrollView {
+                VStack(alignment: .leading) {
+                    TextField("Activity name", text: $activityName)
+                    TextField("Small Description", text: $activityDescription)
                 }
-                dismiss()
+                .padding()
+            }
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
+            .navigationTitle("Add a new activity")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button("Save") {
+                    if activityName.count > 0 {
+                        activities.add(newActivity: Activity(name: activityName, description: activityDescription))
+                    }
+                    dismiss()
+                }
             }
         }
     }

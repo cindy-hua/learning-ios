@@ -13,31 +13,37 @@ struct ActivityDetailView: View {
     @Binding var navigationPath: [NavigationDestination]
     
     var body: some View {
-        List{
-            let groupedSessions = Dictionary(grouping: activity.sessions) { session in
-                Calendar.current.startOfDay(for: session.startTime)
-            }
-            let sortedDates = groupedSessions.keys.sorted(by: >)
-            
-            ForEach(sortedDates, id: \.self) { date in
-                Section(header: Text(date, format: .dateTime.day().month().year())) {
-                    ForEach(groupedSessions[date] ?? []) {session in
-                        HStack {
-                            Text(session.startTime, format: .dateTime.hour().minute())
-                            Text(session.endTime, format: .dateTime.hour().minute())
+        ZStack {
+            Background()
+            List{
+                let groupedSessions = Dictionary(grouping: activity.sessions) { session in
+                    Calendar.current.startOfDay(for: session.startTime)
+                }
+                let sortedDates = groupedSessions.keys.sorted(by: >)
+                
+                ForEach(sortedDates, id: \.self) { date in
+                    Section(header: Text(date, format: .dateTime.day().month().year())) {
+                        ForEach(groupedSessions[date] ?? []) {session in
+                            HStack {
+                                Text(session.startTime, format: .dateTime.hour().minute())
+                                Text(session.endTime, format: .dateTime.hour().minute())
+                            }
                         }
                     }
                 }
+                .onDelete(perform: removeSession)
+                .modifier(GlassBox())
             }
-            .onDelete(perform: removeSession)
-        }
-        .navigationTitle("\(activity.name)")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            Button(action: {
-                navigationPath.append(.addSession(activity))
-            }) {
-                Label("Add session", systemImage: "plus")
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
+            .navigationTitle("\(activity.name)")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button(action: {
+                    navigationPath.append(.addSession(activity))
+                }) {
+                    Label("Add session", systemImage: "plus")
+                }
             }
         }
     }

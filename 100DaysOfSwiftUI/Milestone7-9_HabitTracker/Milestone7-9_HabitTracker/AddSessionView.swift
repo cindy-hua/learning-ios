@@ -16,20 +16,26 @@ struct AddSessionView: View {
     @State private var endTime = Date.now
     
     var body: some View {
-        VStack {
-            DatePicker("Begin", selection: $startTime)
-            DatePicker("End", selection: $endTime)
-        }
-        .navigationTitle("New \(activity.name.lowercased()) session")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            Button("Save") {
-                guard endTime > startTime else {
-                    print("End time must be after start time")
-                    return
+        ZStack{
+            Background()
+            VStack {
+                DatePicker("Start", selection: $startTime)
+                DatePicker("End", selection: $endTime)
+                
+            }
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
+            .navigationTitle("New \(activity.name.lowercased()) session")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                Button("Save") {
+                    guard endTime > startTime else {
+                        print("End time must be after start time")
+                        return
+                    }
+                    activity.addSession(startTime: startTime, endTime: endTime)
+                    dismiss()
                 }
-                activity.addSession(startTime: startTime, endTime: endTime)
-                dismiss()
             }
         }
     }
