@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var users: [User] = []
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List(users) { user in
+                NavigationLink(value: user) {
+                    UserListItemView(user: user)
+                }
+                
+            }
+            .navigationTitle("Users")
+            .task {
+                users = await UserService.getUsers()
+            }
+            .navigationDestination(for: User.self) { user in
+                UserDetailView(user: user)
+            }
         }
-        .padding()
     }
 }
 
