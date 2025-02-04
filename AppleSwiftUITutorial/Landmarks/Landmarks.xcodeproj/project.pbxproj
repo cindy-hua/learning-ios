@@ -19,6 +19,7 @@
 		1ED67B512D511F51006E13B8 /* LandmarkRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67B502D511F51006E13B8 /* LandmarkRow.swift */; };
 		1ED67B532D512119006E13B8 /* LandmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67B522D512119006E13B8 /* LandmarkList.swift */; };
 		1ED67B552D51220F006E13B8 /* LandmarkDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67B542D51220F006E13B8 /* LandmarkDetail.swift */; };
+		1ED67B572D52990F006E13B8 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED67B562D52990F006E13B8 /* FavoriteButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		1ED67B502D511F51006E13B8 /* LandmarkRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkRow.swift; sourceTree = "<group>"; };
 		1ED67B522D512119006E13B8 /* LandmarkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkList.swift; sourceTree = "<group>"; };
 		1ED67B542D51220F006E13B8 /* LandmarkDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkDetail.swift; sourceTree = "<group>"; };
+		1ED67B562D52990F006E13B8 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				1ED67B452D510CF6006E13B8 /* MapView.swift */,
 				1ED67B502D511F51006E13B8 /* LandmarkRow.swift */,
 				1ED67B522D512119006E13B8 /* LandmarkList.swift */,
+				1ED67B562D52990F006E13B8 /* FavoriteButton.swift */,
 				1ED67B542D51220F006E13B8 /* LandmarkDetail.swift */,
 			);
 			path = Views;
@@ -189,6 +192,7 @@
 				1ED67B382D5100E7006E13B8 /* ContentView.swift in Sources */,
 				1ED67B462D510CF6006E13B8 /* MapView.swift in Sources */,
 				1ED67B552D51220F006E13B8 /* LandmarkDetail.swift in Sources */,
+				1ED67B572D52990F006E13B8 /* FavoriteButton.swift in Sources */,
 				1ED67B362D5100E7006E13B8 /* LandmarksApp.swift in Sources */,
 				1ED67B532D512119006E13B8 /* LandmarkList.swift in Sources */,
 				1ED67B442D510C2E006E13B8 /* CircleImage.swift in Sources */,
