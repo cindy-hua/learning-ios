@@ -10,11 +10,11 @@ import MapKit
 
 struct MapView: View {
     var coordinate: CLLocationCoordinate2D
-    
+
     var body: some View {
         Map(position: .constant(.region(region)))
     }
-    
+
     private var region: MKCoordinateRegion {
         MKCoordinateRegion(
             center: coordinate,
