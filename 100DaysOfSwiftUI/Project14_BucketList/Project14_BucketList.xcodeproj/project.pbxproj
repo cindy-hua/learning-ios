@@ -11,6 +11,7 @@
 		1E041FA32D594EDA00AD86F9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E041FA22D594EDA00AD86F9 /* ContentView.swift */; };
 		1E041FA52D594EDF00AD86F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E041FA42D594EDF00AD86F9 /* Assets.xcassets */; };
 		1E041FA82D594EDF00AD86F9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E041FA72D594EDF00AD86F9 /* Preview Assets.xcassets */; };
+		1E041FAF2D5A49EA00AD86F9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E041FAE2D5A49EA00AD86F9 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		1E041FA22D594EDA00AD86F9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1E041FA42D594EDF00AD86F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E041FA72D594EDF00AD86F9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1E041FAE2D5A49EA00AD86F9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				1E041FA02D594EDA00AD86F9 /* Project14_BucketListApp.swift */,
+				1E041FAE2D5A49EA00AD86F9 /* Location.swift */,
 				1E041FA22D594EDA00AD86F9 /* ContentView.swift */,
 				1E041FA42D594EDF00AD86F9 /* Assets.xcassets */,
 				1E041FA62D594EDF00AD86F9 /* Preview Content */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E041FA32D594EDA00AD86F9 /* ContentView.swift in Sources */,
+				1E041FAF2D5A49EA00AD86F9 /* Location.swift in Sources */,
 				1E041FA12D594EDA00AD86F9 /* Project14_BucketListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +279,7 @@
 				DEVELOPMENT_TEAM = JG8KZK844U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +309,7 @@
 				DEVELOPMENT_TEAM = JG8KZK844U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
