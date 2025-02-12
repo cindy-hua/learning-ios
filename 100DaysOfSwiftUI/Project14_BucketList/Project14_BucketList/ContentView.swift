@@ -20,39 +20,61 @@ struct ContentView: View {
     
     var body: some View {
         if viewModel.isUnlocked {
-            MapReader { proxy in
-                Map(initialPosition: startPosition) {
-                    ForEach(viewModel.locations) { location in
-                        Annotation(location.name, coordinate: location.coordinate) {
-                            Image(systemName: "star.circle")
-                                .resizable()
-                                .foregroundStyle(.red)
-                                .frame(width: 44, height: 44)
-                                .background(.white)
-                                .clipShape(.circle)
-                                .onLongPressGesture {
-                                    viewModel.selectedPlace = location
-                                }
+            ZStack {
+                MapReader { proxy in
+                    Map(initialPosition: startPosition) {
+                        ForEach(viewModel.locations) { location in
+                            Annotation(location.name, coordinate: location.coordinate) {
+                                Image(systemName: "star.circle")
+                                    .resizable()
+                                    .foregroundStyle(.red)
+                                    .frame(width: 44, height: 44)
+                                    .background(.white)
+                                    .clipShape(.circle)
+                                    .onLongPressGesture {
+                                        viewModel.selectedPlace = location
+                                    }
+                            }
+                        }
+                    }
+                    .mapStyle(viewModel.standardMapMode ? .standard : .hybrid)
+                    .onTapGesture { position in
+                        if let coordinate = proxy.convert(position, from: .local) {
+                            viewModel.addLocation(at: coordinate)
+                        }
+                    }
+                    .sheet(item: $viewModel.selectedPlace) { place in
+                        EditView(location: place) {
+                            viewModel.update(location: $0)
                         }
                     }
                 }
-                .onTapGesture { position in
-                    if let coordinate = proxy.convert(position, from: .local) {
-                        viewModel.addLocation(at: coordinate)
-                    }
-                }
-                .sheet(item: $viewModel.selectedPlace) { place in
-                    EditView(location: place) {
-                        viewModel.update(location: $0)
+                
+                HStack {
+                    Spacer()
+                    VStack {
+                        Button("Map Mode", action: viewModel.changeMode)
+                        .padding(5)
+                        .background(.blue)
+                        .opacity(0.6)
+                        .foregroundStyle(.white)
+                        .clipShape(.capsule)
+                        .padding()
+                        Spacer()
                     }
                 }
             }
         } else {
             Button("Unlock Places", action: viewModel.authenticate)
-                .padding()
+                .padding(20)
                 .background(.blue)
                 .foregroundStyle(.white)
                 .clipShape(.capsule)
+                .alert("Authentication Error", isPresented: $viewModel.showAlert) {
+                    Button("OK", role: .cancel) {}
+                } message: {
+                    Text(viewModel.alertMessage)
+                }
         }
     }
 }

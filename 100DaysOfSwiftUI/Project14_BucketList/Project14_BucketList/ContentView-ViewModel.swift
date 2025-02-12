@@ -17,6 +17,9 @@ extension ContentView {
         var selectedPlace: Location?
         let savePath = URL.documentsDirectory.appending(path: "SavedPlaces")
         var isUnlocked = false
+        var standardMapMode = true
+        var showAlert = false
+        var alertMessage = ""
         
         init() {
             do {
@@ -62,12 +65,18 @@ extension ContentView {
                     if success {
                         self.isUnlocked = true
                     } else {
-                        // error
+                        self.alertMessage = authenticationError?.localizedDescription ?? "Unknown error occured."
+                        self.showAlert = true
                     }
                 }
             } else {
-                // no biometrics
+                self.alertMessage = error?.localizedDescription ?? "Biometric authentication is not available."
+                self.showAlert = true
             }
+        }
+        
+        func changeMode() {
+            standardMapMode.toggle()
         }
     }
 }
