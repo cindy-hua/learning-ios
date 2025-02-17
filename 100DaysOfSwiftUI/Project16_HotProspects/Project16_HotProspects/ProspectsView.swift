@@ -34,14 +34,16 @@ struct ProspectsView: View {
     var body: some View {
         NavigationStack {
             List(prospects, selection: $selectedProspects) { prospect in
-                HStack {
-                    Image(systemName: prospect.isContacted ? "checkmark" : "xmark")
-                    VStack(alignment: .leading) {
-                        Text(prospect.name)
-                            .font(.headline)
-                        
-                        Text(prospect.emailAddress)
-                            .foregroundStyle(.secondary)
+                NavigationLink(destination: EditView(prospect: prospect)) {
+                    HStack {
+                        Image(systemName: prospect.isContacted ? "checkmark" : "xmark")
+                        VStack(alignment: .leading) {
+                            Text(prospect.name)
+                                .font(.headline)
+                            
+                            Text(prospect.emailAddress)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
                 .swipeActions {
