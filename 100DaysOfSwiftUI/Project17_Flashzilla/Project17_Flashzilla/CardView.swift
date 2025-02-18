@@ -30,7 +30,7 @@ struct CardView: View {
                     accessibilityDifferenciateWithoutColor
                     ? nil
                     : RoundedRectangle(cornerRadius: 25.0)
-                        .fill(offset.width > 0 ? .green : .red)
+                        .fill(offset.width > 0 ? .green : offset.width != 0 ? .red: .white)
                 )
                 .shadow(radius: 10)
             
