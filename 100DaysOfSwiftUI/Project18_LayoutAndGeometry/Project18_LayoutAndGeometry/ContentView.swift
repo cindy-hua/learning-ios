@@ -19,12 +19,16 @@ struct ContentView: View {
                         let fadeStart = 200.0
                         let opacity = min(1, max(0, (minY - fadeStart) / 200))
                         
+                        let scaleFactor = max(0.5, min(1, (minY / fullView.size.height) * 1.5))
+                        
                         Text("Row #\(index)")
                             .font(.title)
                             .frame(maxWidth: .infinity)
                             .background(colors[index % 7])
                             .rotation3DEffect(.degrees(proxy.frame(in: .global).minY - fullView.size.height / 2) / 5, axis: (x: 0, y: 1, z: 0))
+                            .scaleEffect(scaleFactor)
                             .opacity(opacity)
+                            .animation(.easeInOut(duration: 0.3), value: scaleFactor)
                     }
                     .frame(height: 40)
                 }
