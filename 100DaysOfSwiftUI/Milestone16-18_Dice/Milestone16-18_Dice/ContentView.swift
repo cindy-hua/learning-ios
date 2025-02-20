@@ -13,37 +13,18 @@ struct ContentView: View {
     @State private var viewModel = DiceViewModel()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Picker("Dice type", selection: $viewModel.diceType) {
-                    ForEach(viewModel.diceOptions, id: \.self) { dice in
-                        Text("\(dice)")
-                    }
+        TabView {
+            RollDiceView(viewModel: $viewModel)
+                .tabItem {
+                    Label("Roll Dice", systemImage: "die.face.6")
                 }
-                .pickerStyle(.segmented)
-                
-                Stepper("Number of Dice: \(viewModel.diceCount)", value: $viewModel.diceCount, in: 1...10)
-                
-                Button("Roll Dice") {
-                    var newRoll = DiceRoll(diceType: viewModel.diceType, diceCount: viewModel.diceCount)
-                    newRoll.rollDice()
-                    print(newRoll.results)
-                    viewModel.rollHistory.append(newRoll)
-                
+
+            RollHistoryView(rollHistory: $viewModel.rollHistory)
+                .tabItem {
+                    Label("History", systemImage: "clock")
                 }
-                .buttonStyle(.borderedProminent)
-                .padding()
-                
-                ForEach(viewModel.rollHistory.first?.results ?? [], id: \.self) { result in
-                        AnimatedDiceView(finalValue: .constant(result), diceType: viewModel.diceType)
-                    }
-                
-                RollHistoryView(rollHistory: $viewModel.rollHistory)
-            }
-            .padding()
         }
     }
-    
 }
 
 #Preview {

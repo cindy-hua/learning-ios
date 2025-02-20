@@ -20,6 +20,8 @@ class DiceViewModel {
         }
     }
     
+    var isRolling: Bool = false
+    
     init() {
             loadHistory()
         }
@@ -35,6 +37,28 @@ class DiceViewModel {
             if let decodedHistory = try? JSONDecoder().decode([DiceRoll].self, from: saveData) {
                 rollHistory = decodedHistory
             }
+        }
+    }
+    
+    func rollDice() {
+        isRolling = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            self.isRolling = true
+        }
+
+        // 🔥 Toujours s'assurer que `results` a la bonne longueur
+        var tempRoll = DiceRoll(diceType: diceType, diceCount: diceCount)
+        tempRoll.results = Array(repeating: 1, count: diceCount)
+        rollHistory.insert(tempRoll, at: 0)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            var newRoll = DiceRoll(diceType: self.diceType, diceCount: self.diceCount)
+            newRoll.rollDice()
+
+            if self.rollHistory.indices.contains(0) { 
+                self.rollHistory[0] = newRoll
+            }
+            self.isRolling = false
         }
     }
 }

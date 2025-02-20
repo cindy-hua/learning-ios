@@ -14,8 +14,17 @@ struct DiceRoll: Identifiable, Codable {
     var results: [Int] = []
     var total: Int = 0
     
+    init(diceType: Int, diceCount: Int, isTemporary: Bool = false) {
+        self.diceType = diceType
+        self.diceCount = diceCount
+
+        if isTemporary {
+            self.results = Array(repeating: 1, count: diceCount)
+        }
+    }
+    
     mutating func rollDice() {
-        results = (0..<diceCount).map { _ in Int.random(in: 1...diceType)}
+        results = (0..<diceCount).map { _ in Int.random(in: 1...diceType) }
         total = results.reduce(0, +)
     }
 }
