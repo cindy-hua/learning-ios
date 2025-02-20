@@ -11,6 +11,9 @@
 		1E6447902D67710700EBE93E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64478F2D67710700EBE93E /* ContentView.swift */; };
 		1E6447922D67710A00EBE93E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6447912D67710A00EBE93E /* Assets.xcassets */; };
 		1E6447952D67710A00EBE93E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E6447942D67710A00EBE93E /* Preview Assets.xcassets */; };
+		1E64479C2D67949800EBE93E /* DiceRoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64479B2D67949800EBE93E /* DiceRoll.swift */; };
+		1E64479E2D6794CC00EBE93E /* RollHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E64479D2D6794CC00EBE93E /* RollHistoryView.swift */; };
+		1E6447A62D67A36000EBE93E /* DiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6447A52D67A36000EBE93E /* DiceViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		1E64478F2D67710700EBE93E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1E6447912D67710A00EBE93E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E6447942D67710A00EBE93E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1E64479B2D67949800EBE93E /* DiceRoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceRoll.swift; sourceTree = "<group>"; };
+		1E64479D2D6794CC00EBE93E /* RollHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollHistoryView.swift; sourceTree = "<group>"; };
+		1E6447A52D67A36000EBE93E /* DiceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiceViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,9 @@
 			children = (
 				1E64478D2D67710700EBE93E /* Milestone16_18_DiceApp.swift */,
 				1E64478F2D67710700EBE93E /* ContentView.swift */,
+				1E6447A52D67A36000EBE93E /* DiceViewModel.swift */,
+				1E64479B2D67949800EBE93E /* DiceRoll.swift */,
+				1E64479D2D6794CC00EBE93E /* RollHistoryView.swift */,
 				1E6447912D67710A00EBE93E /* Assets.xcassets */,
 				1E6447932D67710A00EBE93E /* Preview Content */,
 			);
@@ -138,6 +147,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E6447902D67710700EBE93E /* ContentView.swift in Sources */,
+				1E64479C2D67949800EBE93E /* DiceRoll.swift in Sources */,
+				1E6447A62D67A36000EBE93E /* DiceViewModel.swift in Sources */,
+				1E64479E2D6794CC00EBE93E /* RollHistoryView.swift in Sources */,
 				1E64478E2D67710700EBE93E /* Milestone16_18_DiceApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
