@@ -12,18 +12,28 @@ struct ContentView: View {
     
     @State private var favorites = Favorites()
     @State private var searchText = ""
+    @State private var sortOrder: SortOrder = .defaultOrder
+
+    enum SortOrder {
+        case defaultOrder, alphabetical, country
+    }
     
-    var filteredResorts: [Resort] {
-        if searchText.isEmpty {
-            resorts
-        } else {
-            resorts.filter { $0.name.localizedStandardContains(searchText)}
+    var sortedResorts: [Resort] {
+        let filtered = searchText.isEmpty ? resorts : resorts.filter { $0.name.localizedStandardContains(searchText) }
+        
+        switch sortOrder {
+        case .defaultOrder:
+            return filtered
+        case .alphabetical:
+            return filtered.sorted { $0.name < $1.name }
+        case .country:
+            return filtered.sorted { $0.country < $1.country }
         }
     }
     
     var body: some View {
         NavigationSplitView {
-            List(filteredResorts) { resort in
+            List(sortedResorts) { resort in
                 NavigationLink(value: resort) {
                     HStack {
                         Image(resort.country)
@@ -59,6 +69,16 @@ struct ContentView: View {
                 ResortView(resort: resort)
             }
             .searchable(text: $searchText, prompt: "Search for a resort")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Picker("Sort", selection: $sortOrder) {
+                        Text("Default").tag(SortOrder.defaultOrder)
+                        Text("Alphabetical").tag(SortOrder.alphabetical)
+                        Text("By Country").tag(SortOrder.country)
+                    }
+                    .pickerStyle(.menu)
+                }
+            }
         } detail: {
             WelcomeView()
         }
