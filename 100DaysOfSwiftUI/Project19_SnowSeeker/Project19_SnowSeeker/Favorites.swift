@@ -15,8 +15,14 @@ class Favorites {
     private let key = "Favorites"
 
     init() {
-        // load our saved data
-
+        if let savedData = UserDefaults.standard.data(forKey: key) {
+            if let decodedResorts = try? JSONDecoder().decode(Set<String>.self, from: savedData) {
+                resorts = decodedResorts
+                return
+            }
+        }
+        
+        // Default to an empty set if no saved data exists
         resorts = []
     }
 
@@ -34,7 +40,9 @@ class Favorites {
         save()
     }
 
-    func save() {
-        // write out our data
+    private func save() {
+        if let encodedData = try? JSONEncoder().encode(resorts) {
+            UserDefaults.standard.set(encodedData, forKey: key)
+        }
     }
 }
